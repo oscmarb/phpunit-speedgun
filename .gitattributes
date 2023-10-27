@@ -1,0 +1,5 @@
+Dockerfile              export-ignore
+Makefile                export-ignore
+/tests                  export-ignore
+.gitattributes          export-ignore
+.gitignore              export-ignore
