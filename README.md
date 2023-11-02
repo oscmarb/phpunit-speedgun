@@ -9,7 +9,7 @@ tests that are considered slow but may not provide an explanation for why they a
 
 ## Installation
 
-SpeedGun is installed using [Composer](http://getcomposer.org). Add it as a `require-dev` dependency:
+**SpeedGun** is installed using [Composer](http://getcomposer.org). Add it as a `require-dev` dependency:
 
     composer require --dev oscmarb/phpunit-speedgun
 
@@ -27,12 +27,12 @@ Enable with all defaults by adding the following code to your project's `phpunit
 </phpunit>
 ```
 
-Now run the test suite. If one or more test executions exceed the slowness threshold (100ms by default), SpeedGun will
+Now run the test suite. If one or more test executions exceed the slowness threshold (100ms by default), **SpeedGun** will
 report on those tests in the console after all tests have completed.
 
 ## Configuring the extension
 
-SpeedGun supports these configuration parameters:
+**SpeedGun** supports these configuration parameters:
 
 * ```slow_threshold``` - Number of milliseconds when a test is considered "slow" (Default: 100ms)
 * ```min_report_length``` - Minimum number of slow tests. If the number of slow tests does not exceed the value of
