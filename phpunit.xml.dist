@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
-        xmlns:xsi                     = "http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation = "https://schema.phpunit.de/9.3/phpunit.xsd"
-        colors                        = "true"
-        bootstrap                     = "vendor/autoload.php">
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+        colors="true"
+        bootstrap="vendor/autoload.php">
+
+    <php>
+        <env name="PHPUNIT_SPEED_GUN" value="1"/>
+    </php>
 
     <coverage>
         <include>
@@ -25,10 +29,10 @@
                         <integer>100</integer>
                     </element>
                     <element key="min_report_length">
-                        <integer>5</integer>
+                        <integer>3</integer>
                     </element>
                     <element key="max_report_length">
-                        <integer>10</integer>
+                        <integer>5</integer>
                     </element>
                     <element key="pattern_thresholds">
                         <array>

@@ -11,9 +11,9 @@ final class SpeedGunPHPUnitExtension implements AfterSuccessfulTestHook, AfterLa
 {
     private const DEFAULT_SLOW_THRESHOLD = 100;
 
-    private const SLOW_THRESHOLD     = 'slow_threshold';
-    private const MAX_REPORT_LENGTH  = 'max_report_length';
-    private const MIN_REPORT_LENGTH  = 'min_report_length';
+    private const SLOW_THRESHOLD = 'slow_threshold';
+    private const MAX_REPORT_LENGTH = 'max_report_length';
+    private const MIN_REPORT_LENGTH = 'min_report_length';
     private const PATTERN_THRESHOLDS = 'pattern_thresholds';
 
     /** @var array<string, int> */
@@ -34,7 +34,7 @@ final class SpeedGunPHPUnitExtension implements AfterSuccessfulTestHook, AfterLa
     public function __construct(array $options = [])
     {
         $env = getenv('PHPUNIT_SPEED_GUN');
-        $this->enabled = false == $env || 'disabled' !== $env;
+        $this->enabled = '0' !== $env && 'disabled' !== $env;
         $this->slowThreshold = $options[self::SLOW_THRESHOLD] ?? self::DEFAULT_SLOW_THRESHOLD;
         $this->maxReportLength = $options[self::MAX_REPORT_LENGTH] ?? null;
         $this->minReportLength = $options[self::MIN_REPORT_LENGTH] ?? null;
@@ -43,14 +43,12 @@ final class SpeedGunPHPUnitExtension implements AfterSuccessfulTestHook, AfterLa
         $patternThresholds = $options[self::PATTERN_THRESHOLDS] ?? [];
 
         if (null !== $this->maxReportLength && $this->minReportLength > $this->maxReportLength) {
-            throw new \RuntimeException(
-                'RadarGunPHPUnitExtension error: maxReportLength can not be lower than minReportLength'
-            );
+            throw new \RuntimeException('SpeedGunPHPUnitExtension error: maxReportLength can not be lower than minReportLength');
         }
 
         $this->patternThresholds = array_combine(
             array_map(
-                static fn(string $pattern) => addslashes($pattern),
+                static fn (string $pattern) => addslashes($pattern),
                 array_keys($patternThresholds),
             ),
             array_values($patternThresholds),
@@ -73,17 +71,17 @@ final class SpeedGunPHPUnitExtension implements AfterSuccessfulTestHook, AfterLa
 
     public function executeBeforeFirstTest(): void
     {
-        $this->suites++;
+        ++$this->suites;
     }
 
     public function executeAfterLastTest(): void
     {
-        $this->suites--;
+        --$this->suites;
 
         if (
-            false === $this->enabled ||
-            0 !== $this->suites ||
-            $this->minReportLength > $this->getReportLength()
+            false === $this->enabled
+            || 0 !== $this->suites
+            || $this->minReportLength > $this->getReportLength()
         ) {
             return;
         }
@@ -125,7 +123,7 @@ final class SpeedGunPHPUnitExtension implements AfterSuccessfulTestHook, AfterLa
 
     private function toMilliseconds(float $time): int
     {
-        return (int)round($time * 1000);
+        return (int) round($time * 1000);
     }
 
     private function getSlowThreshold(string $test): int
@@ -136,7 +134,7 @@ final class SpeedGunPHPUnitExtension implements AfterSuccessfulTestHook, AfterLa
         $ann = Test::parseTestMethodAnnotations($class, $testName);
 
         if (true === isset($ann['method']['slowThreshold'][0])) {
-            return (int)$ann['method']['slowThreshold'][0];
+            return (int) $ann['method']['slowThreshold'][0];
         }
 
         foreach (array_keys($this->patternThresholds) as $pattern) {

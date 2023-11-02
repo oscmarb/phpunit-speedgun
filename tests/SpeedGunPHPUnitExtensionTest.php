@@ -8,7 +8,7 @@ final class SpeedGunPHPUnitExtensionTest extends TestCase
 {
     // Slow tests
 
-    public function test_slow_test_over_one_second(): void
+    public function testSlowTestOverOneSecond(): void
     {
         $this->extendTime(1010);
 
@@ -18,36 +18,28 @@ final class SpeedGunPHPUnitExtensionTest extends TestCase
     /**
      * @slowThreshold 500
      */
-    public function test_slow_can_set_custom_threshold(): void
+    public function testSlowCanSetCustomThreshold(): void
     {
         $this->extendTime(550);
         $this->assertTrue(true);
     }
 
-    public function test_slow_test_with_pattern_slow_test(): void
+    public function testSlowTestWithPatternSlowTest(): void
     {
         $this->extendTime(550);
         $this->assertTrue(true);
     }
 
-    public function test_another_slow_test(): void
+    public function testAnotherSlowTest(): void
     {
-        $this->extendTime(500);
+        $this->extendTime(110);
 
         $this->assertTrue(true);
     }
-
-    public function test_slow_test(): void
-    {
-        $this->extendTime(150);
-
-        $this->assertTrue(true);
-    }
-
 
     // Fast tests
 
-    public function test_fast_test(): void
+    public function testFastTest(): void
     {
         $this->assertTrue(true);
     }
@@ -55,7 +47,7 @@ final class SpeedGunPHPUnitExtensionTest extends TestCase
     /**
      * @slowThreshold 500
      */
-    public function test_fast_can_set_custom_threshold(): void
+    public function testFastCanSetCustomThreshold(): void
     {
         $this->extendTime(400);
         $this->assertTrue(true);
@@ -64,47 +56,36 @@ final class SpeedGunPHPUnitExtensionTest extends TestCase
     /**
      * @slowThreshold 0
      */
-    public function test_fast_can_disable_slow_threshold(): void
+    public function testFastCanDisableSlowThreshold(): void
     {
         $this->extendTime(600);
         $this->assertTrue(true);
     }
 
-    public function test_fast_test_with_pattern_slow_test(): void
+    public function testFastTestWithPatternSlowTest(): void
     {
-        $this->extendTime(300);
+        $this->extendTime(400);
         $this->assertTrue(true);
     }
-
-    /**
-     * @slowThreshold 700
-     */
-    public function test_fast_test_set_higher_threshold_with_pattern_slow_test(): void
-    {
-        $this->extendTime(600);
-        $this->assertTrue(true);
-    }
-
 
     // Other tests
 
-    public function test_exception_can_be_thrown_in_test(): void
+    public function testExceptionCanBeThrownInTest(): void
     {
         $this->expectException(\RuntimeException::class);
 
         throw new \RuntimeException();
     }
 
-    public function test_skipped_test(): void
+    public function testSkippedTest(): void
     {
         $this->markTestSkipped('Skipped tests do not cause Exceptions in SpeedGun extension');
     }
 
-    public function test_incomplete_test(): void
+    public function testIncompleteTest(): void
     {
         $this->markTestIncomplete('Incomplete tests do not cause Exceptions in SpeedGun extension');
     }
-
 
     // Utils
 

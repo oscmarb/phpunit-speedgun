@@ -25,3 +25,20 @@ phpunit:
 
 phpstan:
 		docker run --rm -v ${PWD}:/app ghcr.io/phpstan/phpstan analyse ./src -l 8
+
+fix-cs:
+		docker run --rm -v ${PWD}:/data cytopia/php-cs-fixer fix --verbose --show-progress=dots --rules=@Symfony,-@PSR2 -- src
+		docker run --rm -v ${PWD}:/data cytopia/php-cs-fixer fix --verbose --show-progress=dots --rules=@Symfony,-@PSR2 -- tests
+
+validate-cs:
+		docker run --rm -v ${PWD}:/data cytopia/php-cs-fixer fix --dry-run --verbose --show-progress=dots --rules=@Symfony,-@PSR2 -- src
+		docker run --rm -v ${PWD}:/data cytopia/php-cs-fixer fix --dry-run --verbose --show-progress=dots --rules=@Symfony,-@PSR2 -- tests
+
+.PHONY: tests
+tests:
+	make ci-tests
+	make phpunit
+
+ci-tests:
+	make validate-cs
+	make phpstan
