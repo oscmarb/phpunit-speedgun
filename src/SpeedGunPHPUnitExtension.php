@@ -20,13 +20,13 @@ final class SpeedGunPHPUnitExtension implements AfterSuccessfulTestHook, AfterLa
     private array $patternThresholds;
 
     /** @var array<string, int> */
-    protected array $slowTests = [];
+    private array $slowTests = [];
 
-    private int    $suites = 0;
-    private bool   $enabled;
-    private int    $slowThreshold;
-    protected ?int $maxReportLength;
-    protected ?int $minReportLength;
+    private int  $suites = 0;
+    private bool $enabled;
+    private int  $slowThreshold;
+    private ?int $maxReportLength;
+    private ?int $minReportLength;
 
     /**
      * @param array<string, mixed> $options
@@ -48,7 +48,7 @@ final class SpeedGunPHPUnitExtension implements AfterSuccessfulTestHook, AfterLa
 
         $this->patternThresholds = array_combine(
             array_map(
-                static fn (string $pattern) => addslashes($pattern),
+                static fn(string $pattern) => addslashes($pattern),
                 array_keys($patternThresholds),
             ),
             array_values($patternThresholds),

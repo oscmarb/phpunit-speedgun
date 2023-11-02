@@ -8,6 +8,13 @@ final class SpeedGunPHPUnitExtensionTest extends TestCase
 {
     // Slow tests
 
+    public function testSlowTest(): void
+    {
+        $this->extendTime(110);
+
+        $this->assertTrue(true);
+    }
+
     public function testSlowTestOverOneSecond(): void
     {
         $this->extendTime(1010);
@@ -27,13 +34,6 @@ final class SpeedGunPHPUnitExtensionTest extends TestCase
     public function testSlowTestWithPatternSlowTest(): void
     {
         $this->extendTime(550);
-        $this->assertTrue(true);
-    }
-
-    public function testAnotherSlowTest(): void
-    {
-        $this->extendTime(110);
-
         $this->assertTrue(true);
     }
 

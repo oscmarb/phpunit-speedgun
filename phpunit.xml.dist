@@ -36,7 +36,7 @@
                     </element>
                     <element key="pattern_thresholds">
                         <array>
-                            <element key="(.*)pattern_slow_test(.*)">
+                            <element key="(.*)PatternSlow(.*)">
                                 <integer>500</integer>
                             </element>
                         </array>
